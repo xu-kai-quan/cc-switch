@@ -328,7 +328,10 @@ pub fn mask_url(url: &str) -> String {
         // URL 解析失败，返回部分内容。截断点回退到最近的字符边界，
         // 避免在多字节 UTF-8 字符中间切割导致 panic。
         if url.len() > 20 {
-            let cut = (0..=20).rev().find(|&i| url.is_char_boundary(i)).unwrap_or(0);
+            let cut = (0..=20)
+                .rev()
+                .find(|&i| url.is_char_boundary(i))
+                .unwrap_or(0);
             format!("{}...", &url[..cut])
         } else {
             url.to_string()
